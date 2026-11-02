@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="760" prefWidth="1180" stylesheets="@../css/app.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pe.edu.objetoshallados.controller.MyClaimsController">
+    <top><HBox alignment="CENTER_LEFT" spacing="12" styleClass="top-bar"><Label styleClass="top-brand" text="ENCUENTRA+"/><Region HBox.hgrow="ALWAYS"/><Button onAction="#onMenu" styleClass="button-ghost" text="Inicio"/><Button onAction="#onCatalog" styleClass="button-ghost" text="Catálogo"/><Button onAction="#onNotices" styleClass="button-ghost" text="Avisos"/><Button onAction="#onLogout" styleClass="button-ghost" text="Cerrar sesión"/></HBox></top>
+    <center>
+        <VBox spacing="16" styleClass="page-shell">
+            <VBox spacing="4"><Label styleClass="eyebrow" text="SEGUIMIENTO"/><Label styleClass="page-title" text="Mis reclamos"/><Label styleClass="muted-text" text="Consulta el estado y la respuesta administrativa de cada solicitud."/></VBox>
+            <HBox spacing="9"><Label styleClass="status-en-reclamo" text="● Pendiente"/><Label styleClass="status-disponible" text="● Aprobado"/><Label styleClass="message-error" text="● Rechazado"/></HBox>
+            <TableView fx:id="claimsTable" VBox.vgrow="ALWAYS">
+                <columns><TableColumn fx:id="objectColumn" prefWidth="260" text="Objeto"/><TableColumn fx:id="dateColumn" prefWidth="180" text="Fecha"/><TableColumn fx:id="statusColumn" prefWidth="150" text="Estado"/><TableColumn fx:id="responseColumn" prefWidth="420" text="Respuesta"/></columns>
+                <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN"/></columnResizePolicy>
+            </TableView>
+            <HBox alignment="CENTER_LEFT"><Label fx:id="messageLabel" styleClass="form-message"/><Region HBox.hgrow="ALWAYS"/><Button onAction="#onMenu" styleClass="button-secondary" text="Volver al inicio"/><Region minWidth="10"/><Button onAction="#onOpenClaim" styleClass="button-primary" text="Ver detalle"/></HBox>
+        </VBox>
+    </center>
+</BorderPane>

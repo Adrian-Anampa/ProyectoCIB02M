@@ -1,39 +1,43 @@
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-.kotlin
+.m2-repository/
+.m2-wrapper/
+.kotlin/
 
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
+# IntelliJ IDEA
+.idea/
 *.iws
 *.iml
 *.ipr
 
-### Eclipse ###
-.apt_generated
+# Eclipse y Spring Tools
+.apt_generated/
 .classpath
 .factorypath
 .project
-.settings
+.settings/
 .springBeans
 .sts4-cache
 
-### NetBeans ###
+# NetBeans y otros builds
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
 build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
-.vscode/
+# VS Code: se comparten configuraciones; solo se ignoran logs
+.vscode/*.log
 
-### Mac OS ###
+# Archivos locales y generados
+*.log
+*.db
+*.mv.db
+.env
+config.properties
 .DS_Store
+logs/
+uploads/
+data/images/*
+!data/images/.gitkeep
+

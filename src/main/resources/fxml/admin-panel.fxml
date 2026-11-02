@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="760" prefWidth="1180" stylesheets="@../css/app.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pe.edu.objetoshallados.controller.AdminPanelController">
+    <top><HBox alignment="CENTER_LEFT" spacing="12" styleClass="top-bar"><Label styleClass="top-brand" text="ENCUENTRA+ ADMIN"/><Region HBox.hgrow="ALWAYS"/><Label fx:id="userLabel" styleClass="top-user"/><Button onAction="#onMenu" styleClass="button-ghost" text="Vista general"/><Button onAction="#onLogout" styleClass="button-ghost" text="Cerrar sesión"/></HBox></top>
+    <center>
+        <VBox spacing="22" styleClass="page-shell">
+            <VBox spacing="4"><Label styleClass="eyebrow" text="ADMINISTRACIÓN"/><Label styleClass="page-title" text="Panel de control"/><Label styleClass="muted-text" text="Gestiona solicitudes y supervisa la actividad del sistema."/></VBox>
+            <HBox spacing="16"><VBox HBox.hgrow="ALWAYS" spacing="5" styleClass="stat-card"><Label fx:id="availableLabel" styleClass="stat-value"/><Label styleClass="stat-caption" text="OBJETOS DISPONIBLES"/></VBox><VBox HBox.hgrow="ALWAYS" spacing="5" styleClass="stat-card"><Label fx:id="pendingLabel" styleClass="stat-value"/><Label styleClass="stat-caption" text="RECLAMOS PENDIENTES"/></VBox><VBox HBox.hgrow="ALWAYS" spacing="5" styleClass="stat-card"><Label fx:id="returnedLabel" styleClass="stat-value"/><Label styleClass="stat-caption" text="OBJETOS DEVUELTOS"/></VBox></HBox>
+            <HBox spacing="16" VBox.vgrow="ALWAYS">
+                <VBox HBox.hgrow="ALWAYS" spacing="13" styleClass="action-card"><Label styleClass="action-icon" text="✓"/><Label styleClass="section-title" text="Reclamos"/><Label maxWidth="300" styleClass="muted-text" text="Revisa respuestas de custodia y aprueba o rechaza solicitudes." wrapText="true"/><Region VBox.vgrow="ALWAYS"/><Button onAction="#onAdminClaims" styleClass="button-primary" text="Gestionar reclamos"/></VBox>
+                <VBox HBox.hgrow="ALWAYS" spacing="13" styleClass="action-card"><Label styleClass="action-icon" text="▥"/><Label styleClass="section-title" text="Indicadores"/><Label maxWidth="300" styleClass="muted-text" text="Consulta el estado general mediante tarjetas y gráficos." wrapText="true"/><Region VBox.vgrow="ALWAYS"/><Button onAction="#onIndicators" styleClass="button-primary" text="Ver indicadores"/></VBox>
+                <VBox HBox.hgrow="ALWAYS" spacing="13" styleClass="action-card"><Label styleClass="action-icon" text="≡"/><Label styleClass="section-title" text="Bitácora"/><Label maxWidth="300" styleClass="muted-text" text="Audita usuarios, acciones, fechas y elementos relacionados." wrapText="true"/><Region VBox.vgrow="ALWAYS"/><Button onAction="#onAudit" styleClass="button-primary" text="Abrir bitácora"/></VBox>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

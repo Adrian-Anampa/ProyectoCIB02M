@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="760" prefWidth="1180" stylesheets="@../css/app.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pe.edu.objetoshallados.controller.ClaimDetailController">
+    <top><HBox alignment="CENTER_LEFT" spacing="12" styleClass="top-bar"><Label styleClass="top-brand" text="ENCUENTRA+"/><Region HBox.hgrow="ALWAYS"/><Button onAction="#onMenu" styleClass="button-ghost" text="Inicio"/><Button onAction="#onLogout" styleClass="button-ghost" text="Cerrar sesión"/></HBox></top>
+    <center>
+        <StackPane styleClass="page-shell">
+            <VBox maxWidth="780" spacing="19" styleClass="content-card">
+                <HBox alignment="CENTER_LEFT"><VBox spacing="4"><Label styleClass="eyebrow" text="DETALLE DEL RECLAMO"/><Label styleClass="page-title" text="Estado de la solicitud"/></VBox><Region HBox.hgrow="ALWAYS"/><Label fx:id="claimIdLabel" styleClass="eyebrow"/></HBox>
+                <GridPane hgap="32" vgap="18">
+                    <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0"><Label styleClass="helper-text" text="OBJETO"/><Label fx:id="objectLabel" styleClass="card-title"/></VBox>
+                    <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0"><Label styleClass="helper-text" text="SOLICITANTE"/><Label fx:id="claimantLabel" styleClass="card-title"/></VBox>
+                    <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="1"><Label styleClass="helper-text" text="FECHA"/><Label fx:id="dateLabel" styleClass="card-title"/></VBox>
+                    <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="1"><Label styleClass="helper-text" text="ESTADO"/><Label fx:id="statusLabel" styleClass="card-title"/></VBox>
+                </GridPane>
+                <Separator/>
+                <VBox spacing="6"><Label styleClass="field-label" text="Respuesta de verificación"/><Label fx:id="answerLabel" maxWidth="720" styleClass="muted-text" wrapText="true"/></VBox>
+                <VBox spacing="6"><Label styleClass="field-label" text="Respuesta administrativa"/><Label fx:id="responseLabel" maxWidth="720" styleClass="muted-text" wrapText="true"/></VBox>
+                <HBox alignment="CENTER_RIGHT"><Button onAction="#onBack" styleClass="button-secondary" text="Volver"/></HBox>
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>

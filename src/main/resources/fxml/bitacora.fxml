@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="760" prefWidth="1180" stylesheets="@../css/app.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pe.edu.objetoshallados.controller.AuditController">
+    <top><HBox alignment="CENTER_LEFT" spacing="12" styleClass="top-bar"><Label styleClass="top-brand" text="ENCUENTRA+ ADMIN"/><Region HBox.hgrow="ALWAYS"/><Button onAction="#onAdmin" styleClass="button-ghost" text="Panel"/><Button onAction="#onMenu" styleClass="button-ghost" text="Vista general"/><Button onAction="#onLogout" styleClass="button-ghost" text="Cerrar sesión"/></HBox></top>
+    <center>
+        <VBox spacing="16" styleClass="page-shell">
+            <VBox spacing="4"><Label styleClass="eyebrow" text="AUDITORÍA"/><Label styleClass="page-title" text="Bitácora de actividad"/><Label styleClass="muted-text" text="Registro cronológico de las acciones relevantes del sistema."/></VBox>
+            <TableView fx:id="auditTable" VBox.vgrow="ALWAYS"><columns><TableColumn fx:id="userColumn" prefWidth="230" text="Usuario"/><TableColumn fx:id="actionColumn" prefWidth="220" text="Acción"/><TableColumn fx:id="dateColumn" prefWidth="210" text="Fecha y hora"/><TableColumn fx:id="elementColumn" prefWidth="360" text="Elemento relacionado"/></columns><columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN"/></columnResizePolicy></TableView>
+            <HBox alignment="CENTER_RIGHT"><Button onAction="#onAdmin" styleClass="button-secondary" text="Volver al panel"/></HBox>
+        </VBox>
+    </center>
+</BorderPane>

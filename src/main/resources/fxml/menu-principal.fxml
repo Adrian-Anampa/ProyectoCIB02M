@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="760" prefWidth="1180" stylesheets="@../css/app.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pe.edu.objetoshallados.controller.MenuController">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="14" styleClass="top-bar">
+            <Label styleClass="top-brand" text="ENCUENTRA+"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="userLabel" styleClass="top-user"/>
+            <Button onAction="#onNotices" styleClass="button-ghost" text="Avisos"/>
+            <Button onAction="#onLogout" styleClass="button-ghost" text="Cerrar sesión"/>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="edge-to-edge">
+            <VBox spacing="22" styleClass="page-shell">
+                <VBox spacing="6">
+                    <Label styleClass="eyebrow" text="PANEL PRINCIPAL"/>
+                    <Label styleClass="page-title" text="¿Qué deseas hacer hoy?"/>
+                    <Label styleClass="muted-text" text="Consulta objetos encontrados, publica un hallazgo o sigue tus solicitudes."/>
+                </VBox>
+                <HBox spacing="16">
+                    <VBox HBox.hgrow="ALWAYS" spacing="5" styleClass="stat-card"><Label fx:id="availableLabel" styleClass="stat-value"/><Label styleClass="stat-caption" text="OBJETOS DISPONIBLES"/></VBox>
+                    <VBox HBox.hgrow="ALWAYS" spacing="5" styleClass="stat-card"><Label fx:id="pendingLabel" styleClass="stat-value"/><Label styleClass="stat-caption" text="RECLAMOS PENDIENTES"/></VBox>
+                    <VBox HBox.hgrow="ALWAYS" spacing="5" styleClass="stat-card"><Label fx:id="returnedLabel" styleClass="stat-value"/><Label styleClass="stat-caption" text="OBJETOS DEVUELTOS"/></VBox>
+                </HBox>
+                <TilePane hgap="16" prefColumns="3" tileAlignment="TOP_LEFT" vgap="16">
+                    <VBox prefWidth="330" spacing="12" styleClass="action-card">
+                        <Label styleClass="action-icon" text="⌕"/><Label styleClass="card-title" text="Explorar catálogo"/><Label maxWidth="280" styleClass="muted-text" text="Busca por categoría, lugar, fecha o estado." wrapText="true"/><Button onAction="#onCatalog" styleClass="button-primary" text="Ver objetos"/>
+                    </VBox>
+                    <VBox prefWidth="330" spacing="12" styleClass="action-card">
+                        <Label styleClass="action-icon" text="＋"/><Label styleClass="card-title" text="Publicar un hallazgo"/><Label maxWidth="280" styleClass="muted-text" text="Registra un objeto que encontraste en el campus." wrapText="true"/><Button onAction="#onPublish" styleClass="button-primary" text="Publicar objeto"/>
+                    </VBox>
+                    <VBox prefWidth="330" spacing="12" styleClass="action-card">
+                        <Label styleClass="action-icon" text="✓"/><Label styleClass="card-title" text="Mis reclamos"/><Label maxWidth="280" styleClass="muted-text" text="Revisa solicitudes pendientes, aprobadas o rechazadas." wrapText="true"/><Button onAction="#onClaims" styleClass="button-primary" text="Ver reclamos"/>
+                    </VBox>
+                    <VBox prefWidth="330" spacing="12" styleClass="action-card">
+                        <Label styleClass="action-icon" text="●"/><Label styleClass="card-title" text="Avisos"/><Label maxWidth="280" styleClass="muted-text" text="Consulta novedades y cambios en tus solicitudes." wrapText="true"/><Button onAction="#onNotices" styleClass="button-secondary" text="Ver avisos"/>
+                    </VBox>
+                    <VBox fx:id="adminCard" prefWidth="330" spacing="12" styleClass="action-card">
+                        <Label styleClass="action-icon" text="▦"/><Label styleClass="card-title" text="Administración"/><Label maxWidth="280" styleClass="muted-text" text="Gestiona reclamos, indicadores y bitácora." wrapText="true"/><Button onAction="#onAdmin" styleClass="button-secondary" text="Abrir panel"/>
+                    </VBox>
+                </TilePane>
+                <Label fx:id="modeLabel" styleClass="helper-text"/>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="760" prefWidth="1180" stylesheets="@../css/app.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pe.edu.objetoshallados.controller.NoticesController">
+    <top><HBox alignment="CENTER_LEFT" spacing="12" styleClass="top-bar"><Label styleClass="top-brand" text="ENCUENTRA+"/><Region HBox.hgrow="ALWAYS"/><Button onAction="#onMenu" styleClass="button-ghost" text="Inicio"/><Button onAction="#onCatalog" styleClass="button-ghost" text="Catálogo"/><Button onAction="#onClaims" styleClass="button-ghost" text="Mis reclamos"/><Button onAction="#onLogout" styleClass="button-ghost" text="Cerrar sesión"/></HBox></top>
+    <center>
+        <VBox spacing="17" styleClass="page-shell">
+            <VBox spacing="4"><Label styleClass="eyebrow" text="CENTRO DE AVISOS"/><Label styleClass="page-title" text="Novedades para ti"/><Label styleClass="muted-text" text="Los avisos pendientes se muestran destacados."/></VBox>
+            <TableView fx:id="noticesTable" VBox.vgrow="ALWAYS">
+                <columns><TableColumn fx:id="stateColumn" prefWidth="120" text="Estado"/><TableColumn fx:id="messageColumn" prefWidth="480" text="Mensaje"/><TableColumn fx:id="objectColumn" prefWidth="220" text="Objeto relacionado"/><TableColumn fx:id="dateColumn" prefWidth="190" text="Fecha"/></columns>
+                <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN"/></columnResizePolicy>
+            </TableView>
+            <HBox alignment="CENTER_RIGHT"><Button onAction="#onMenu" styleClass="button-secondary" text="Volver al inicio"/></HBox>
+        </VBox>
+    </center>
+</BorderPane>

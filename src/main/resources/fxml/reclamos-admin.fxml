@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="760" prefWidth="1180" stylesheets="@../css/app.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pe.edu.objetoshallados.controller.AdminClaimsController">
+    <top><HBox alignment="CENTER_LEFT" spacing="12" styleClass="top-bar"><Label styleClass="top-brand" text="ENCUENTRA+ ADMIN"/><Region HBox.hgrow="ALWAYS"/><Button onAction="#onAdmin" styleClass="button-ghost" text="Panel"/><Button onAction="#onMenu" styleClass="button-ghost" text="Vista general"/><Button onAction="#onLogout" styleClass="button-ghost" text="Cerrar sesión"/></HBox></top>
+    <center>
+        <VBox spacing="15" styleClass="page-shell">
+            <VBox spacing="4"><Label styleClass="eyebrow" text="ADMINISTRACIÓN DE RECLAMOS"/><Label styleClass="page-title" text="Solicitudes de devolución"/><Label styleClass="muted-text" text="Selecciona un reclamo, revisa la respuesta y registra una decisión."/></VBox>
+            <SplitPane dividerPositions="0.64" VBox.vgrow="ALWAYS">
+                <VBox spacing="9">
+                    <TableView fx:id="claimsTable" VBox.vgrow="ALWAYS"><columns><TableColumn fx:id="idColumn" prefWidth="110" text="Código"/><TableColumn fx:id="objectColumn" prefWidth="210" text="Objeto"/><TableColumn fx:id="claimantColumn" prefWidth="190" text="Solicitante"/><TableColumn fx:id="dateColumn" prefWidth="155" text="Fecha"/><TableColumn fx:id="statusColumn" prefWidth="120" text="Estado"/></columns><columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN"/></columnResizePolicy></TableView>
+                    <Button onAction="#onOpenDetail" styleClass="button-secondary" text="Abrir detalle completo"/>
+                </VBox>
+                <VBox spacing="12" styleClass="content-card">
+                    <Label styleClass="section-title" text="Evaluación"/>
+                    <VBox spacing="5"><Label styleClass="field-label" text="Respuesta del reclamante"/><TextArea fx:id="answerArea" editable="false" prefRowCount="5" wrapText="true"/></VBox>
+                    <VBox spacing="5" VBox.vgrow="ALWAYS"><Label styleClass="field-label" text="Respuesta administrativa *"/><TextArea fx:id="responseArea" prefRowCount="5" promptText="Explica la decisión al estudiante..." wrapText="true" VBox.vgrow="ALWAYS"/></VBox>
+                    <Label fx:id="messageLabel" minHeight="22" styleClass="form-message message-error" wrapText="true"/>
+                    <HBox spacing="8"><Button onAction="#onReject" styleClass="button-danger" text="Rechazar"/><Button onAction="#onApprove" styleClass="button-success" text="Aprobar"/></HBox>
+                </VBox>
+            </SplitPane>
+        </VBox>
+    </center>
+</BorderPane>

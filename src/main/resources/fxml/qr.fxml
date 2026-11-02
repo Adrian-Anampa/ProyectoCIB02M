@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="760" prefWidth="1180" stylesheets="@../css/app.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pe.edu.objetoshallados.controller.QrController">
+    <top><HBox alignment="CENTER_LEFT" spacing="12" styleClass="top-bar"><Label styleClass="top-brand" text="ENCUENTRA+"/><Region HBox.hgrow="ALWAYS"/><Button onAction="#onMenu" styleClass="button-ghost" text="Inicio"/><Button onAction="#onCatalog" styleClass="button-ghost" text="Catálogo"/></HBox></top>
+    <center>
+        <StackPane styleClass="page-shell">
+            <VBox alignment="CENTER" maxWidth="600" spacing="16" styleClass="content-card">
+                <Label styleClass="eyebrow" text="IDENTIFICADOR DEL OBJETO"/><Label fx:id="objectLabel" styleClass="page-title"/><Label fx:id="identifierLabel" styleClass="section-title"/>
+                <StackPane styleClass="qr-frame"><GridPane fx:id="qrGrid" alignment="CENTER" hgap="0" vgap="0"><padding><Insets bottom="2" left="2" right="2" top="2"/></padding></GridPane></StackPane>
+                <Label maxWidth="480" styleClass="muted-text" text="Vista visual del código asociado. La generación e impresión definitiva puede integrarse mediante el módulo QR." textAlignment="CENTER" wrapText="true"/>
+                <Button onAction="#onBack" styleClass="button-secondary" text="Volver al objeto"/>
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>

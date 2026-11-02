@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="760" prefWidth="1180" stylesheets="@../css/app.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pe.edu.objetoshallados.controller.ItemDetailController">
+    <top><HBox alignment="CENTER_LEFT" spacing="12" styleClass="top-bar"><Label styleClass="top-brand" text="ENCUENTRA+"/><Region HBox.hgrow="ALWAYS"/><Button onAction="#onMenu" styleClass="button-ghost" text="Inicio"/><Button onAction="#onCatalog" styleClass="button-ghost" text="Catálogo"/><Button onAction="#onLogout" styleClass="button-ghost" text="Cerrar sesión"/></HBox></top>
+    <center>
+        <VBox spacing="18" styleClass="page-shell">
+            <HBox alignment="CENTER_LEFT"><VBox spacing="4"><Label styleClass="eyebrow" text="DETALLE DEL OBJETO"/><Label fx:id="titleLabel" styleClass="page-title"/></VBox><Region HBox.hgrow="ALWAYS"/><Label fx:id="itemIdLabel" styleClass="eyebrow"/></HBox>
+            <HBox spacing="26" styleClass="content-card" VBox.vgrow="ALWAYS">
+                <StackPane minHeight="360" minWidth="400" prefHeight="430" prefWidth="440" styleClass="image-placeholder">
+                    <ImageView fx:id="itemImage" fitHeight="410" fitWidth="420" preserveRatio="true" smooth="true"/>
+                    <Label fx:id="imagePlaceholder" text="▧"/>
+                </StackPane>
+                <VBox spacing="20" HBox.hgrow="ALWAYS">
+                    <VBox spacing="7"><Label styleClass="field-label" text="Descripción"/><Label fx:id="descriptionLabel" maxWidth="520" styleClass="muted-text" wrapText="true"/></VBox>
+                    <GridPane hgap="26" vgap="16">
+                        <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0"><Label styleClass="helper-text" text="CATEGORÍA"/><Label fx:id="categoryLabel" styleClass="card-title"/></VBox>
+                        <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0"><Label styleClass="helper-text" text="LUGAR DEL HALLAZGO"/><Label fx:id="locationLabel" styleClass="card-title"/></VBox>
+                        <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="1"><Label styleClass="helper-text" text="FECHA"/><Label fx:id="dateLabel" styleClass="card-title"/></VBox>
+                        <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="1"><Label styleClass="helper-text" text="ESTADO"/><Label fx:id="statusLabel" styleClass="card-title"/></VBox>
+                    </GridPane>
+                    <Separator/>
+                    <VBox spacing="9"><Label styleClass="card-title" text="¿Reconoces este objeto?"/><Label styleClass="muted-text" text="Para protegerlo, te haremos una pregunta que solo su propietario debería responder." wrapText="true"/></VBox>
+                    <HBox spacing="10"><Button fx:id="claimButton" onAction="#onClaimItem" styleClass="button-primary" text="Este objeto es mío"/><Button onAction="#onQr" styleClass="button-secondary" text="Ver código QR"/></HBox>
+                    <Region VBox.vgrow="ALWAYS"/>
+                    <Label styleClass="helper-text" text="La aprobación del reclamo corresponde al personal autorizado." wrapText="true"/>
+                </VBox>
+            </HBox>
+            <HBox><Button onAction="#onBack" styleClass="button-secondary" text="← Volver al catálogo"/></HBox>
+        </VBox>
+    </center>
+</BorderPane>

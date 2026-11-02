@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FxmlStructureTest {
     private static final List<String> VIEWS = List.of(
-            "login.fxml", "registro.fxml", "menu-principal.fxml", "catalogo.fxml", "publicar-objeto.fxml",
+            "login.fxml", "registro.fxml", "menu-principal.fxml", "catalogo.fxml", "publicar-objeto.fxml", "editar-objeto.fxml",
             "detalle-objeto.fxml", "mis-reclamos.fxml", "detalle-reclamo.fxml", "custodia.fxml", "avisos.fxml",
             "qr.fxml", "admin-panel.fxml", "reclamos-admin.fxml", "indicadores.fxml", "bitacora.fxml"
     );

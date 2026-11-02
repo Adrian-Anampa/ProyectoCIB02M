@@ -36,7 +36,7 @@ public final class PublishItemController extends BaseController {
     private void onSelectImage() {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Seleccionar fotografía del objeto");
-        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg", "*.gif"));
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imágenes PNG o JPG", "*.png", "*.jpg", "*.jpeg"));
         File selected = chooser.showOpenDialog(Navigator.stage());
         if (selected != null) {
             imagePathField.setText(selected.getAbsolutePath());

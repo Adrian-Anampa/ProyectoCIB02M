@@ -15,6 +15,10 @@ public class FakeUsuarioRepository implements UsuarioRepository {
     private int contadorId = 1;
 
     public FakeUsuarioRepository() {
+        Usuario student = new Usuario("Ana", "Torres", "estudiante@demo.pe",
+                BCrypt.hashpw("Demo123*", BCrypt.gensalt()), Rol.USUARIO);
+        student.setIdUsuario(contadorId++);
+        baseDeDatosFalsa.add(student);
         // Encriptamos la clave "123456" del administrador de prueba
         String adminHash = BCrypt.hashpw("123456", BCrypt.gensalt());
         Usuario admin = new Usuario("Admin", "Principal", "admin@uni.edu.pe", adminHash, Rol.ADMINISTRADOR);

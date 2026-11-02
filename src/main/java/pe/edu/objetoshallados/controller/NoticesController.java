@@ -19,6 +19,7 @@ public final class NoticesController extends BaseController {
     @FXML private TableColumn<Notice, String> messageColumn;
     @FXML private TableColumn<Notice, String> objectColumn;
     @FXML private TableColumn<Notice, String> dateColumn;
+    @FXML private Label messageLabel;
 
     @FXML
     private void initialize() {
@@ -36,6 +37,26 @@ public final class NoticesController extends BaseController {
             }
         });
         noticesTable.setPlaceholder(new Label("No tienes avisos por el momento."));
-        noticesTable.setItems(FXCollections.observableArrayList(AppContext.claims().notices(UserSession.get().id())));
+        refresh();
+    }
+
+    @FXML
+    private void onMarkRead() {
+        Notice selected = noticesTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            messageLabel.setText("Selecciona un aviso.");
+            return;
+        }
+        try {
+            AppContext.notices().markRead(selected.id(), UserSession.get().id());
+            messageLabel.setText("Aviso marcado como leído.");
+            refresh();
+        } catch (RuntimeException exception) {
+            messageLabel.setText("No se pudo actualizar el aviso.");
+        }
+    }
+
+    private void refresh() {
+        noticesTable.setItems(FXCollections.observableArrayList(AppContext.notices().forUser(UserSession.get().id())));
     }
 }

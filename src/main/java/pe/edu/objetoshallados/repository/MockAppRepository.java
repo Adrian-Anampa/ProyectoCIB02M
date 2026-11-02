@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
@@ -18,10 +20,14 @@ public final class MockAppRepository implements AppRepository {
     private final List<LostItem> items = new ArrayList<>();
     private final List<Claim> claims = new ArrayList<>();
     private final List<Notice> notices = new ArrayList<>();
+    private final Map<Long, Long> noticeOwners = new HashMap<>();
+    private final Map<Long, Long> claimOwners = new HashMap<>();
+    private final Map<Long, Long> itemOwners = new HashMap<>();
     private final List<AuditEntry> audit = new ArrayList<>();
     private final AtomicLong userSequence = new AtomicLong(3);
     private final AtomicLong itemSequence = new AtomicLong(6);
     private final AtomicLong claimSequence = new AtomicLong(3);
+    private final AtomicLong noticeSequence = new AtomicLong(3);
 
     public MockAppRepository() {
         users.add(new UserAccount(new User(1, "Ana Torres", "estudiante@demo.pe", "20240001", Role.ESTUDIANTE), "Demo123*"));
@@ -32,12 +38,17 @@ public final class MockAppRepository implements AppRepository {
         items.add(new LostItem(3, "Botella térmica", "Botella metálica color verde con stickers.", "Accesorios", "Cafetería", LocalDate.now().minusDays(1), ItemStatus.DISPONIBLE, "", "Describe uno de los stickers."));
         items.add(new LostItem(4, "Calculadora científica", "Calculadora gris dentro de una funda.", "Útiles", "Aula B-305", LocalDate.now().minusDays(7), ItemStatus.DISPONIBLE, "", "¿Qué hay escrito en la funda?"));
         items.add(new LostItem(5, "Casaca negra", "Casaca ligera talla M.", "Ropa", "Patio principal", LocalDate.now().minusDays(10), ItemStatus.DEVUELTO, "", "¿Qué objeto había en un bolsillo?"));
+        for (LostItem item : items) itemOwners.put(item.id(), 2L);
 
         claims.add(new Claim(1, 2, "Audífonos inalámbricos", "Ana Torres", LocalDateTime.now().minusDays(1), ClaimStatus.PENDIENTE, "Son marca X y el estuche tiene una marca pequeña.", "En evaluación"));
         claims.add(new Claim(2, 5, "Casaca negra", "Ana Torres", LocalDateTime.now().minusDays(8), ClaimStatus.APROBADO, "Había una tarjeta del bus.", "Identidad verificada. Acércate a recepción."));
 
         notices.add(new Notice(1, "Tu reclamo por Audífonos inalámbricos está siendo evaluado.", LocalDateTime.now().minusHours(5), "Audífonos inalámbricos", false));
         notices.add(new Notice(2, "Se publicó un objeto que coincide con tu búsqueda: Botella térmica.", LocalDateTime.now().minusDays(1), "Botella térmica", true));
+        noticeOwners.put(1L, 1L);
+        noticeOwners.put(2L, 1L);
+        claimOwners.put(1L, 1L);
+        claimOwners.put(2L, 1L);
 
         audit.add(new AuditEntry(1, "Carlos Administrador", "INICIO_SESION", LocalDateTime.now().minusMinutes(30), "Sesión administrativa"));
         audit.add(new AuditEntry(2, "Ana Torres", "CREAR_RECLAMO", LocalDateTime.now().minusDays(1), "Audífonos inalámbricos"));
@@ -72,8 +83,31 @@ public final class MockAppRepository implements AppRepository {
         LostItem saved = new LostItem(itemSequence.getAndIncrement(), item.title(), item.description(), item.category(),
                 item.location(), item.foundDate(), ItemStatus.DISPONIBLE, item.imagePath(), item.verificationQuestion());
         items.add(saved);
+        itemOwners.put(saved.id(), userId);
         audit.add(new AuditEntry(audit.size() + 1L, userName(userId), "PUBLICAR_OBJETO", LocalDateTime.now(), saved.title()));
         return saved;
+    }
+
+    @Override
+    public boolean isItemPublisher(long itemId, long userId) {
+        return userId == itemOwners.getOrDefault(itemId, -1L);
+    }
+
+    @Override
+    public synchronized LostItem updateItem(LostItem item, long userId) {
+        if (!isItemPublisher(item.id(), userId)) throw new IllegalArgumentException("Solo puedes editar tus publicaciones.");
+        for (int index = 0; index < items.size(); index++) {
+            LostItem current = items.get(index);
+            if (current.id() == item.id()) {
+                if (current.status() != ItemStatus.DISPONIBLE) {
+                    throw new IllegalArgumentException("No se puede editar un objeto con reclamos o ya devuelto.");
+                }
+                items.set(index, item);
+                audit.add(new AuditEntry(audit.size() + 1L, userName(userId), "EDITAR_OBJETO", LocalDateTime.now(), item.title()));
+                return item;
+            }
+        }
+        throw new IllegalArgumentException("No se encontró el objeto.");
     }
 
     @Override
@@ -92,6 +126,7 @@ public final class MockAppRepository implements AppRepository {
         Claim claim = new Claim(claimSequence.getAndIncrement(), itemId, item.title(), userName(userId),
                 LocalDateTime.now(), ClaimStatus.PENDIENTE, answer, "Pendiente de revisión");
         claims.add(claim);
+        claimOwners.put(claim.id(), userId);
         replaceItem(item, ItemStatus.EN_RECLAMO);
         audit.add(new AuditEntry(audit.size() + 1L, userName(userId), "CREAR_RECLAMO", LocalDateTime.now(), item.title()));
         return claim;
@@ -107,6 +142,11 @@ public final class MockAppRepository implements AppRepository {
                 items.stream().filter(item -> item.id() == current.itemId()).findFirst()
                         .ifPresent(item -> replaceItem(item, status == ClaimStatus.APROBADO ? ItemStatus.DEVUELTO : ItemStatus.DISPONIBLE));
                 audit.add(new AuditEntry(audit.size() + 1L, userName(adminId), "RESOLVER_RECLAMO", LocalDateTime.now(), current.itemTitle()));
+                long noticeId = noticeSequence.getAndIncrement();
+                notices.add(new Notice(noticeId, "Tu reclamo por " + current.itemTitle() + " fue "
+                        + (status == ClaimStatus.APROBADO ? "aprobado" : "rechazado") + ". " + adminResponse,
+                        LocalDateTime.now(), current.itemTitle(), false));
+                noticeOwners.put(noticeId, claimOwners.get(current.id()));
                 return;
             }
         }
@@ -115,7 +155,21 @@ public final class MockAppRepository implements AppRepository {
 
     @Override
     public List<Notice> findNotices(long userId) {
-        return List.copyOf(notices);
+        return notices.stream().filter(notice -> userId == noticeOwners.getOrDefault(notice.id(), -1L)).toList();
+    }
+
+    @Override
+    public synchronized void markNoticeRead(long noticeId, long userId) {
+        if (userId != noticeOwners.getOrDefault(noticeId, -1L)) {
+            throw new IllegalArgumentException("No se encontró el aviso.");
+        }
+        for (int index = 0; index < notices.size(); index++) {
+            Notice notice = notices.get(index);
+            if (notice.id() == noticeId) {
+                notices.set(index, new Notice(notice.id(), notice.message(), notice.createdAt(), notice.itemTitle(), true));
+                return;
+            }
+        }
     }
 
     @Override

@@ -25,6 +25,7 @@ public final class ItemDetailController extends BaseController {
     @FXML private ImageView itemImage;
     @FXML private Label imagePlaceholder;
     @FXML private Button claimButton;
+    @FXML private Button editButton;
 
     private LostItem item;
 
@@ -46,6 +47,9 @@ public final class ItemDetailController extends BaseController {
         itemIdLabel.setText("OBJ-" + String.format("%05d", item.id()));
         claimButton.setDisable(item.status() != ItemStatus.DISPONIBLE);
         claimButton.setText(item.status() == ItemStatus.DISPONIBLE ? "Este objeto es mío" : "No disponible para reclamo");
+        boolean editable = AppContext.items().canEdit(item, UserSession.get().id());
+        editButton.setVisible(editable);
+        editButton.setManaged(editable);
         loadImage(item.imagePath());
     }
 
@@ -57,6 +61,11 @@ public final class ItemDetailController extends BaseController {
     @FXML
     private void onQr() {
         Navigator.goTo("qr.fxml");
+    }
+
+    @FXML
+    private void onEdit() {
+        Navigator.goTo("editar-objeto.fxml");
     }
 
     @Override

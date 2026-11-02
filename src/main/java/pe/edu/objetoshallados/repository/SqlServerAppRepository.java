@@ -226,6 +226,61 @@ public final class SqlServerAppRepository implements AppRepository {
     }
 
     @Override
+    public boolean isItemPublisher(long itemId, long userId) {
+        String sql = "SELECT 1 FROM objetos_encontrados WHERE id_objeto = ? AND publicado_por = ?";
+        try (Connection connection = connection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, itemId);
+            statement.setLong(2, userId);
+            try (ResultSet result = statement.executeQuery()) {
+                return result.next();
+            }
+        } catch (SQLException exception) {
+            throw failure("No se pudo verificar la publicación", exception);
+        }
+    }
+
+    @Override
+    public LostItem updateItem(LostItem item, long userId) {
+        String sql = """
+                UPDATE objetos_encontrados
+                   SET titulo = ?, descripcion = ?, categoria = ?, lugar_hallazgo = ?,
+                       fecha_hallazgo = ?, ruta_imagen = ?, pregunta_verificacion = ?
+                 WHERE id_objeto = ? AND publicado_por = ? AND estado = 'DISPONIBLE'
+                """;
+        try (Connection connection = connection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, item.title());
+            statement.setString(2, item.description());
+            statement.setString(3, item.category());
+            statement.setString(4, item.location());
+            statement.setDate(5, Date.valueOf(item.foundDate()));
+            statement.setString(6, item.imagePath());
+            statement.setString(7, item.verificationQuestion());
+            statement.setLong(8, item.id());
+            statement.setLong(9, userId);
+            if (statement.executeUpdate() == 0) {
+                throw new IllegalArgumentException("El objeto no está disponible o no te pertenece.");
+            }
+            return item;
+        } catch (SQLException exception) {
+            throw failure("No se pudo editar el objeto", exception);
+        }
+    }
+
+    @Override
+    public void markNoticeRead(long noticeId, long userId) {
+        String sql = "UPDATE avisos SET leido = 1 WHERE id_aviso = ? AND id_usuario = ?";
+        try (Connection connection = connection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, noticeId);
+            statement.setLong(2, userId);
+            if (statement.executeUpdate() == 0) {
+                throw new IllegalArgumentException("No se encontró el aviso.");
+            }
+        } catch (SQLException exception) {
+            throw failure("No se pudo marcar el aviso como leído", exception);
+        }
+    }
+
+    @Override
     public List<AuditEntry> findAuditEntries() {
         String sql = """
                 SELECT b.id_bitacora, COALESCE(u.nombre_completo, N'Sistema') AS usuario, b.accion,

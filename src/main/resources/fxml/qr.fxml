@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane prefHeight="760" prefWidth="1180" stylesheets="@../css/app.css"
@@ -12,8 +13,8 @@
         <StackPane styleClass="page-shell">
             <VBox alignment="CENTER" maxWidth="600" spacing="16" styleClass="content-card">
                 <Label styleClass="eyebrow" text="IDENTIFICADOR DEL OBJETO"/><Label fx:id="objectLabel" styleClass="page-title"/><Label fx:id="identifierLabel" styleClass="section-title"/>
-                <StackPane styleClass="qr-frame"><GridPane fx:id="qrGrid" alignment="CENTER" hgap="0" vgap="0"><padding><Insets bottom="2" left="2" right="2" top="2"/></padding></GridPane></StackPane>
-                <Label maxWidth="480" styleClass="muted-text" text="Vista visual del código asociado. La generación e impresión definitiva puede integrarse mediante el módulo QR." textAlignment="CENTER" wrapText="true"/>
+                <StackPane styleClass="qr-frame"><ImageView fx:id="qrImage" fitWidth="240" fitHeight="240" preserveRatio="true" smooth="false"/></StackPane>
+                <Label maxWidth="480" styleClass="muted-text" text="Escanea el código para leer el identificador del objeto." textAlignment="CENTER" wrapText="true"/>
                 <Button onAction="#onBack" styleClass="button-secondary" text="Volver al objeto"/>
             </VBox>
         </StackPane>

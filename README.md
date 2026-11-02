@@ -24,6 +24,7 @@ Usuarios del modo demostración:
 | Rol | Correo | Contraseña |
 |---|---|---|
 | Administrador | `admin@uni.edu.pe` | `123456` |
+| Estudiante de demostración | `estudiante@demo.pe` | `Demo123*` |
 
 Los estudiantes pueden crear una cuenta desde la pantalla de registro y luego iniciar sesión.
 
@@ -44,6 +45,13 @@ No es necesario agregar manualmente el SDK de JavaFX: Maven descarga sus módulo
 4. Abrir la vista Maven y ejecutar `Plugins > javafx > javafx:run`, o usar la terminal con los comandos anteriores.
 
 La carpeta `.vscode` contiene recomendaciones y una configuración de ejecución.
+
+## Funcionalidades de objetos, fotos, QR y avisos
+
+- El catálogo permite buscar por palabra clave, categoría, lugar, fecha y estado. Se pueden publicar objetos y editar publicaciones propias mientras estén disponibles.
+- Las fotos PNG/JPG se validan (máximo 5 MB) y se copian a `data/images/` con un nombre UUID. La base de datos conserva la ruta de la copia.
+- El detalle muestra un QR escaneable con el identificador `OBJ-00001` del objeto.
+- Los avisos de reclamos resueltos aparecen en la pantalla de avisos y se pueden marcar como leídos. Los indicadores muestran publicados, disponibles, reclamos pendientes, devueltos y objetos por categoría.
 
 ## Scene Builder
 

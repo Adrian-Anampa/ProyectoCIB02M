@@ -26,7 +26,7 @@
                     </GridPane>
                     <Separator/>
                     <VBox spacing="9"><Label styleClass="card-title" text="¿Reconoces este objeto?"/><Label styleClass="muted-text" text="Para protegerlo, te haremos una pregunta que solo su propietario debería responder." wrapText="true"/></VBox>
-                    <HBox spacing="10"><Button fx:id="claimButton" onAction="#onClaimItem" styleClass="button-primary" text="Este objeto es mío"/><Button onAction="#onQr" styleClass="button-secondary" text="Ver código QR"/></HBox>
+                    <HBox spacing="10"><Button fx:id="claimButton" onAction="#onClaimItem" styleClass="button-primary" text="Este objeto es mío"/><Button onAction="#onQr" styleClass="button-secondary" text="Ver código QR"/><Button fx:id="editButton" onAction="#onEdit" styleClass="button-secondary" text="Editar publicación"/></HBox>
                     <Region VBox.vgrow="ALWAYS"/>
                     <Label styleClass="helper-text" text="La aprobación del reclamo corresponde al personal autorizado." wrapText="true"/>
                 </VBox>

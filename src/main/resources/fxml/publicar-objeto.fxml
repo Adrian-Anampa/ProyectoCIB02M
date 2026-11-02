@@ -34,7 +34,7 @@
                         </StackPane>
                         <TextField fx:id="imagePathField" editable="false" promptText="Ninguna imagen seleccionada"/>
                         <Button maxWidth="1.7976931348623157E308" onAction="#onSelectImage" styleClass="button-secondary" text="Seleccionar imagen"/>
-                        <Label styleClass="helper-text" text="PNG, JPG o GIF. La vista previa es local." wrapText="true"/>
+                        <Label styleClass="helper-text" text="PNG o JPG, máximo 5 MB. La foto se guardará al publicar." wrapText="true"/>
                     </VBox>
                 </HBox>
                 <HBox alignment="CENTER_RIGHT" spacing="10"><Button onAction="#onMenu" styleClass="button-secondary" text="Cancelar"/><Button onAction="#onPublishItem" styleClass="button-primary" text="Publicar objeto"/></HBox>

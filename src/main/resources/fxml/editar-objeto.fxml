@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="760" prefWidth="1180" stylesheets="@../css/app.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pe.edu.objetoshallados.controller.EditItemController">
+    <top><HBox alignment="CENTER_LEFT" spacing="12" styleClass="top-bar"><Label styleClass="top-brand" text="ENCUENTRA+"/><Region HBox.hgrow="ALWAYS"/><Button onAction="#onMenu" styleClass="button-ghost" text="Inicio"/><Button onAction="#onCatalog" styleClass="button-ghost" text="Catálogo"/></HBox></top>
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="edge-to-edge">
+            <VBox spacing="18" styleClass="page-shell">
+                <VBox spacing="4"><Label styleClass="eyebrow" text="MI PUBLICACIÓN"/><Label styleClass="page-title" text="Editar objeto"/><Label styleClass="muted-text" text="Puedes editar el objeto mientras esté disponible."/></VBox>
+                <HBox spacing="20" styleClass="content-card">
+                    <VBox spacing="14" HBox.hgrow="ALWAYS">
+                        <VBox spacing="5"><Label styleClass="field-label" text="Título *"/><TextField fx:id="titleField"/></VBox>
+                        <VBox spacing="5"><Label styleClass="field-label" text="Descripción *"/><TextArea fx:id="descriptionArea" prefRowCount="4" wrapText="true"/></VBox>
+                        <HBox spacing="12">
+                            <VBox spacing="5" HBox.hgrow="ALWAYS"><Label styleClass="field-label" text="Categoría *"/><ComboBox fx:id="categoryCombo" maxWidth="1.7976931348623157E308"/></VBox>
+                            <VBox spacing="5" HBox.hgrow="ALWAYS"><Label styleClass="field-label" text="Lugar *"/><TextField fx:id="locationField"/></VBox>
+                            <VBox spacing="5" prefWidth="165"><Label styleClass="field-label" text="Fecha *"/><DatePicker fx:id="datePicker" maxWidth="1.7976931348623157E308"/></VBox>
+                        </HBox>
+                        <VBox spacing="5"><Label styleClass="field-label" text="Pregunta de verificación *"/><TextField fx:id="questionField"/></VBox>
+                        <Label fx:id="messageLabel" minHeight="22" styleClass="form-message" wrapText="true"/>
+                    </VBox>
+                    <VBox prefWidth="290" spacing="12">
+                        <Label styleClass="field-label" text="Fotografía"/>
+                        <StackPane prefHeight="230" prefWidth="290" styleClass="image-placeholder"><ImageView fx:id="previewImage" fitHeight="220" fitWidth="280" preserveRatio="true" smooth="true"/></StackPane>
+                        <TextField fx:id="imagePathField" editable="false" promptText="Conservar fotografía actual"/>
+                        <Button maxWidth="1.7976931348623157E308" onAction="#onSelectImage" styleClass="button-secondary" text="Reemplazar imagen"/>
+                        <Label styleClass="helper-text" text="PNG o JPG, máximo 5 MB."/>
+                    </VBox>
+                </HBox>
+                <HBox alignment="CENTER_RIGHT" spacing="10"><Button onAction="#onBack" styleClass="button-secondary" text="Cancelar"/><Button onAction="#onSave" styleClass="button-primary" text="Guardar cambios"/></HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

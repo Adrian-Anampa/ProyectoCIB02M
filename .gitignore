@@ -1,0 +1,11 @@
+target/
+*.class
+*.log
+.idea/
+*.iml
+.vscode/
+.env
+config.properties
+data/images/*
+!data/images/.gitkeep
+

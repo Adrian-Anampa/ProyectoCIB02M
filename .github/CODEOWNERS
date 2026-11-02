@@ -1,0 +1,14 @@
+*                                 @usuario1 @usuario2 @usuario3 @usuario4
+/app/core/                        @usuario3
+/migrations/                      @usuario2
+/scripts/                         @usuario2
+/app/templates/                   @usuario1
+/app/static/                      @usuario1
+/app/modulos/m1_usuarios/         @usuario3
+/app/modulos/m3_reclamos/         @usuario3
+/app/modulos/m4_custodia/         @usuario3
+/app/modulos/m2_objetos/          @usuario4
+/app/modulos/m5_qr/               @usuario4
+/app/modulos/m6_avisos/           @usuario4
+/app/modulos/*/modelos.py         @usuario2
+/app/modulos/*/templates/         @usuario1

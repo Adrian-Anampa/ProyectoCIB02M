@@ -3,6 +3,7 @@ package pe.edu.objetoshallados.util;
 import javafx.scene.control.Button;
 import pe.edu.objetoshallados.model.Role;
 import pe.edu.objetoshallados.session.UserSession;
+import pe.edu.uni.campusfind.security.SessionManager;
 
 public final class ViewSupport {
     private ViewSupport() {}
@@ -18,6 +19,7 @@ public final class ViewSupport {
     }
 
     public static void logout() {
+        SessionManager.getInstance().logout();
         UserSession.clear();
         Navigator.goTo("login.fxml");
     }

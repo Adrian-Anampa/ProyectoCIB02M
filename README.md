@@ -23,8 +23,9 @@ Usuarios del modo demostración:
 
 | Rol | Correo | Contraseña |
 |---|---|---|
-| Estudiante | `estudiante@demo.pe` | `Demo123*` |
-| Administrador | `admin@demo.pe` | `Admin123*` |
+| Administrador | `admin@uni.edu.pe` | `123456` |
+
+Los estudiantes pueden crear una cuenta desde la pantalla de registro y luego iniciar sesión.
 
 ## IntelliJ IDEA
 

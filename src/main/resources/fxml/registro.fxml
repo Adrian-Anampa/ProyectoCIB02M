@@ -6,7 +6,7 @@
 
 <BorderPane prefHeight="760" prefWidth="1180" stylesheets="@../css/app.css"
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="pe.edu.objetoshallados.controller.RegisterController">
+            fx:controller="pe.edu.uni.campusfind.controller.RegistroController">
     <left>
         <VBox alignment="CENTER_LEFT" prefWidth="430" spacing="20" styleClass="brand-panel">
             <padding><Insets bottom="60" left="55" right="55" top="60"/></padding>
@@ -22,16 +22,16 @@
                     <Label styleClass="eyebrow" text="NUEVA CUENTA"/>
                     <Label styleClass="page-title" text="Registro de estudiante"/>
                     <Label styleClass="muted-text" text="Los campos marcados con * son obligatorios."/>
-                    <VBox spacing="6"><Label styleClass="field-label" text="Nombre completo *"/><TextField fx:id="fullNameField" promptText="Nombres y apellidos"/></VBox>
                     <HBox spacing="14">
-                        <VBox spacing="6" HBox.hgrow="ALWAYS"><Label styleClass="field-label" text="Correo institucional *"/><TextField fx:id="emailField" promptText="nombre@institucion.edu.pe"/></VBox>
-                        <VBox spacing="6" HBox.hgrow="ALWAYS"><Label styleClass="field-label" text="Código de estudiante *"/><TextField fx:id="studentCodeField" promptText="20260001"/></VBox>
+                        <VBox spacing="6" HBox.hgrow="ALWAYS"><Label styleClass="field-label" text="Nombres *"/><TextField fx:id="firstNameField" promptText="Nombres"/></VBox>
+                        <VBox spacing="6" HBox.hgrow="ALWAYS"><Label styleClass="field-label" text="Apellidos *"/><TextField fx:id="lastNameField" promptText="Apellidos"/></VBox>
                     </HBox>
+                    <VBox spacing="6"><Label styleClass="field-label" text="Correo electrónico *"/><TextField fx:id="emailField" promptText="nombre@institucion.edu.pe"/></VBox>
                     <HBox spacing="14">
                         <VBox spacing="6" HBox.hgrow="ALWAYS"><Label styleClass="field-label" text="Contraseña *"/><PasswordField fx:id="passwordField" promptText="Mínimo 8 caracteres"/></VBox>
                         <VBox spacing="6" HBox.hgrow="ALWAYS"><Label styleClass="field-label" text="Confirmar contraseña *"/><PasswordField fx:id="confirmationField" onAction="#onRegister" promptText="Repite la contraseña"/></VBox>
                     </HBox>
-                    <Label styleClass="helper-text" text="Debe incluir al menos una mayúscula y un número."/>
+                    <Label styleClass="helper-text" text="La contraseña se almacena protegida mediante BCrypt."/>
                     <Label fx:id="messageLabel" minHeight="24" styleClass="form-message" wrapText="true"/>
                     <HBox alignment="CENTER_RIGHT" spacing="12">
                         <Button cancelButton="true" onAction="#onBack" styleClass="button-secondary" text="Volver"/>

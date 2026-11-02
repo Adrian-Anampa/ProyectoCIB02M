@@ -6,7 +6,7 @@
 
 <BorderPane prefHeight="760.0" prefWidth="1180.0" stylesheets="@../css/app.css"
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="pe.edu.objetoshallados.controller.LoginController">
+            fx:controller="pe.edu.uni.campusfind.controller.LoginController">
     <left>
         <VBox alignment="CENTER_LEFT" prefWidth="520.0" spacing="22.0" styleClass="brand-panel">
             <padding><Insets bottom="70" left="64" right="64" top="70"/></padding>
@@ -46,10 +46,7 @@
                 </HBox>
                 <Separator/>
                 <Label styleClass="demo-title" text="Accesos de demostración"/>
-                <HBox spacing="10">
-                    <Button onAction="#useStudentDemo" styleClass="button-secondary" text="Cargar estudiante" HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308"/>
-                    <Button onAction="#useAdminDemo" styleClass="button-secondary" text="Cargar administrador" HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308"/>
-                </HBox>
+                <Button maxWidth="1.7976931348623157E308" onAction="#useAdminDemo" styleClass="button-secondary" text="Cargar administrador"/>
             </VBox>
         </StackPane>
     </center>

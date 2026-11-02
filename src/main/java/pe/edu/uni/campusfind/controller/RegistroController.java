@@ -1,37 +1,63 @@
 package pe.edu.uni.campusfind.controller;
 
-import pe.edu.uni.campusfind.repository.FakeUsuarioRepository;
-import pe.edu.uni.campusfind.service.AuthService;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import pe.edu.objetoshallados.config.AppContext;
+import pe.edu.objetoshallados.util.Dialogs;
+import pe.edu.objetoshallados.util.Navigator;
 
-public class RegistroController {
+public final class RegistroController {
+    @FXML private TextField firstNameField;
+    @FXML private TextField lastNameField;
+    @FXML private TextField emailField;
+    @FXML private PasswordField passwordField;
+    @FXML private PasswordField confirmationField;
+    @FXML private Label messageLabel;
 
-    private final AuthService authService;
+    @FXML
+    private void onRegister() {
+        String firstName = value(firstNameField);
+        String lastName = value(lastNameField);
+        String email = value(emailField);
+        String password = passwordField.getText();
+        String confirmation = confirmationField.getText();
 
-    public RegistroController() {
-        // Al igual que en el Login, instanciamos el servicio con el repositorio temporal
-        this.authService = new AuthService(new FakeUsuarioRepository());
-    }
-
-    // Oscar conectará el botón "Registrarse" de su pantalla a este método
-    public void intentarRegistro(String nombre, String apellido, String correo, String password) {
-
-        // 1. Validación rápida de campos vacíos
-        if (nombre.trim().isEmpty() || apellido.trim().isEmpty() ||
-                correo.trim().isEmpty() || password.trim().isEmpty()) {
-            System.out.println("Error: Todos los campos son obligatorios.");
-            // TODO: Mostrar alerta visual en JavaFX
+        if (firstName.isBlank() || lastName.isBlank() || email.isBlank()
+                || password == null || password.isBlank()) {
+            showError("Todos los campos son obligatorios.");
+            return;
+        }
+        if (!password.equals(confirmation)) {
+            showError("Las contraseñas no coinciden.");
             return;
         }
 
-        // 2. Pasamos los datos a tu lógica de negocio
-        boolean exito = authService.registrarUsuario(nombre, apellido, correo, password);
-
-        if (exito) {
-            System.out.println("¡Registro exitoso! Aquí JavaFX cambiará a la pantalla de Login.");
-            // TODO: Código JavaFX para cambiar de escena
-        } else {
-            System.out.println("Error: El correo " + correo + " ya está registrado.");
-            // TODO: Código JavaFX para mostrar mensaje de error en rojo
+        try {
+            boolean registered = AppContext.auth().registrarUsuario(firstName, lastName, email, password);
+            if (!registered) {
+                showError("El correo ya está registrado.");
+                return;
+            }
+            Dialogs.info("Cuenta creada", "La cuenta fue creada correctamente. Ya puedes iniciar sesión.");
+            Navigator.goTo("login.fxml");
+        } catch (RuntimeException exception) {
+            showError("No fue posible completar el registro.");
         }
+    }
+
+    @FXML
+    private void onBack() {
+        Navigator.goTo("login.fxml");
+    }
+
+    private static String value(TextField field) {
+        return field.getText() == null ? "" : field.getText().trim();
+    }
+
+    private void showError(String message) {
+        messageLabel.setText(message);
+        messageLabel.getStyleClass().setAll("form-message", "message-error");
     }
 }

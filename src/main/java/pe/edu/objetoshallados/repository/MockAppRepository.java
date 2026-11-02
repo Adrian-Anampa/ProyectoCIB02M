@@ -1,6 +1,8 @@
 package pe.edu.objetoshallados.repository;
 
 import pe.edu.objetoshallados.model.*;
+import pe.edu.uni.campusfind.model.Usuario;
+import pe.edu.uni.campusfind.security.SessionManager;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -140,6 +142,10 @@ public final class MockAppRepository implements AppRepository {
     }
 
     private String userName(long userId) {
+        Usuario currentUser = SessionManager.getInstance().getUsuarioActual();
+        if (currentUser != null && currentUser.getIdUsuario() == userId) {
+            return (currentUser.getNombre() + " " + currentUser.getApellido()).trim();
+        }
         return users.stream().map(UserAccount::user).filter(user -> user.id() == userId)
                 .map(User::fullName).findFirst().orElse("Usuario");
     }
